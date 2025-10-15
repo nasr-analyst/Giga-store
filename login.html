@@ -17,7 +17,7 @@
         </div>
         <nav class="header-nav">
             <a href="#" class="nav-link">Home</a>
-            <a href="register.html" class="nav-link login-btn">Register</a> 
+            <a href="register.html" class="nav-link login-btn">Register</a>
         </nav>
     </header>
 
@@ -47,7 +47,9 @@
 
                     <div class="form-group password-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Your password" required>
+                        <input type="password" id="password" name="password" placeholder="Choose a secure password"
+                            required>
+                        <button type="button" class="show-password-btn">Show</button>
                     </div>
 
                     <div class="options-row">
@@ -94,6 +96,22 @@
         </div>
     </footer>
 
+    <script>
+        // Attach behavior to every show-password-btn inside .password-group
+        document.querySelectorAll('.password-group .show-password-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // find the nearest input[type="password"] in the same .password-group
+                const group = btn.closest('.password-group');
+                if (!group) return;
+                const input = group.querySelector('input[type="password"], input[type="text"]');
+                if (!input) return;
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                btn.textContent = isPassword ? 'Hide' : 'Show';
+                btn.setAttribute('aria-pressed', String(isPassword));
+            });
+        });
+    </script>
 </body>
 
 </html>
