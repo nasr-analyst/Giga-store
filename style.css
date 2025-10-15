@@ -1,0 +1,274 @@
+/*  الألوان الأساسية ودي تسهيلا بدل ما نفضل نكتب الاكواد كل شوية */
+:root {
+    --primary-color: #f77f48; 
+    --background-color: #f8f7f5;
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #777;
+    --card-background: #ffffff;
+    --input-background: #f9f9f9;
+    --border-color: #ddd;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: var(--text-dark);
+    direction: ltr; 
+}
+
+/* -------------------- رأس الصفحة (Header) -------------------- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: var(--card-background);
+    border-bottom: 1px solid #eee;
+}
+
+.logo-container .logo-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.header-nav .nav-link {
+    text-decoration: none;
+    color: var(--text-medium);
+    margin-left: 20px;
+    padding: 8px 15px;
+    transition: color 0.3s;
+}
+
+.header-nav .login-btn {
+    background-color: var(--primary-color); /* #f77f48 */
+    color: white;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease; 
+}
+.header-nav .login-btn:hover {
+    background-color: #e66e37; 
+    box-shadow: 0 4px 8px rgba(247, 127, 72, 0.4);
+    transform: translateY(-2px);
+}
+
+/* -------------------- المحتوى الرئيسي -------------------- */
+.main-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 40px;
+}
+
+.login-layout {
+    display: flex;
+    max-width: 1050px;
+    width: 100%;
+}
+
+/* القسم الأيسر: المعلومات واللوجو والكلام اللي تحته */
+.info-section {
+    flex: 1;
+    padding-right: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center; 
+}
+
+.logo-image-container {
+    margin-bottom: 5px; 
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content; 
+}
+
+.main-logo-img {
+    max-width: 350px; 
+    height: auto; 
+    display: block;
+}
+
+.sign-in-title {
+    font-size: 44px;
+    font-weight: 700;
+    margin-top: 5px; 
+    margin-bottom: 10px;
+    color: #FE7743;
+    
+}
+
+.sign-in-text {
+    color: var(--text-medium);
+    font-size: 17px;
+    line-height: 1.6;
+    color: #273F4F;
+}
+
+/* -------------------- بطاقة التسجيل (Login Card) -------------------- */
+.login-card {
+    background-color: var(--card-background);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    width: 380px;
+    flex-shrink: 0;
+}
+
+.login-card h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 18px; 
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: var(--text-dark);
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: var(--input-background);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+/* تنسيق حقل كلمة المرور لإظهار زر "Show" وهنظبطها بالجافا سكريبت*/
+.password-group {
+    position: relative;
+}
+
+.password-group .show-password-btn {
+    position: absolute;
+    right: 15px;
+    top: 38px;
+    background: none;
+    border: none;
+    color: var(--text-medium);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0;
+}
+
+.options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.options-row .forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.options-row .remember-me input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.sign-in-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sign-in-btn:hover {
+    background-color: #e66e37;
+}
+
+.terms-text {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.terms-text .terms-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* -------------------- تذييل الصفحة (Footer)-------------------- */
+
+.footer {
+    padding: 30px 50px;
+    border-top: 1px solid #eee;
+    color: var(--text-light);
+    font-size: 14px;
+    background-color: var(--background-color);
+}
+
+/* دا علشان نخلي القسمسن جنب بعض*/
+.footer-content-revised {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    max-width: 1050px;
+    margin: 0 auto;
+    gap: 30px; 
+}
+
+/* تنسيق كل قسم فرعي في الفوتر */
+.footer-section-item {
+    flex-shrink: 0; 
+}
+
+.footer-section-item h4 {
+    font-size: 16px;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+/* الروابط الافقية */
+.footer-section-item a {
+    display: inline-block; 
+    margin-right: 15px; 
+    margin-bottom: 0; 
+    
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-section-item p {
+    display: block; 
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+
+.copyright-section {
+    text-align: right; 
+    align-self: flex-end;
+}
