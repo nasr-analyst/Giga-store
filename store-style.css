@@ -1,0 +1,256 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Segoe UI", Roboto, Arial;
+  background: #f5f5f7;
+  color: #222;
+}
+
+/* Page Layout */
+.page {
+  width: 1100px;
+  margin: 30px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(10,10,12,0.08);
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 32px;
+  border-bottom: 1px solid #eee;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand .logo { width: 42px; height: 42px; object-fit: contain; }
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f1f1;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 220px;
+  font-size: 14px;
+}
+.btn-search {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+
+.hero {
+  height: 200px;
+  background: url('image/shop.png') center/cover;
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+}
+.hero .title {
+  background: rgba(255,255,255,0.95);
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 28px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(10,10,12,0.06);
+}
+
+
+.content {
+  display: flex;
+  gap: 24px;
+  padding: 28px 36px;
+}
+
+
+.sidebar {
+  width: 220px;
+  background: #fbfbfc;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  height: fit-content;
+}
+.sidebar h3 { 
+    margin-bottom: 12px;
+     font-size: 16px; font-weight: 700; 
+    }
+.categories { list-style: none; }
+.categories li {
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+.categories li:hover { background: #f3f3f4; }
+
+
+.main { flex: 1; }
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.section-title { font-size: 18px; font-weight: 700; }
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.product {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 8px rgba(10,10,12,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.product .img-wrap {
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+  border-radius: 8px;
+}
+.product img { max-width: 100%; max-height: 100%; }
+.product .meta { display: flex; justify-content: space-between; }
+.product .name { font-weight: 600; }
+.product .price { font-weight: 700; color: #111; }
+.actions { display: flex; gap: 8px; margin-top: auto; }
+
+.btn {
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  transition: 0.2s;
+}
+.btn-add {
+  background: #fff;
+  border: 1px solid #ddd;
+}
+.btn-add:hover { background: #f0f0f0; }
+.btn-buy {
+  background: #111;
+  color: #fff;
+}
+.btn-buy:hover { background: #333; }
+
+/* Recommendations */
+.recommendations {
+  padding: 24px 36px;
+  border-top: 1px solid #eee;
+}
+.rec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.rec-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(10,10,12,0.03);
+}
+.rec-card img {
+  width: 140px;
+  height: 90px;
+  object-fit: contain;
+}
+.rec-card .btn-buy { width: 100%; }
+
+/* CTA */
+.cta {
+  background: #111;
+  color: #fff;
+  margin: 22px 36px;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cta .left{
+    font-size: 30px;
+    font-weight: 1000;
+}
+.cta input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  width: 260px;
+}
+.cta button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #fff;
+  color: #111;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Footer */
+.site-footer {
+  padding: 20px 36px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+  border-top: 1px solid #eee;
+}
+.footer-col { width: 200px; }
+.muted { color: #888; font-size: 12px; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
