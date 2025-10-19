@@ -1,0 +1,1 @@
+<?php echo "Test File for database configuration\n"; ?>
