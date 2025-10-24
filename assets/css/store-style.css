@@ -372,7 +372,12 @@ body {
 .footer-col {
   width: 200px;
 }
-
+.social a i{
+  
+  font-size:25px;
+  color: #333;
+  margin: 10px 5px 0 0;
+}
 .muted {
   color: var(--text-light);
   font-size: 12px;

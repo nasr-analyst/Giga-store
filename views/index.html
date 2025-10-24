@@ -5,7 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=1200" />
     <title>Giga Store</title>
-    <link rel="stylesheet" href="/assets/css/store-style.css" />
+    <link rel="stylesheet" href="../assets/css/store-style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
 </head>
 
 <body>
@@ -13,7 +15,7 @@
     <div class="page">
         <header class="header">
             <div class="brand">
-                <img src="/assets/images/logo.png" alt="logo" class="logo">
+                <img src="../assets/images/logo.png" alt="logo" class="logo">
             </div>
 
             <nav class="nav">
@@ -38,13 +40,11 @@
             <aside class="sidebar">
                 <h3>Categories</h3>
                 <ul class="categories">
-                    <li>All Products <span>▸</span></li>
-                    <li>Home</li>
-                    <li>Mobile</li>
-                    <li>Music</li>
-                    <li>New Arrivals</li>
-                    <li>Best Sellers</li>
-                    <li>Offers</li>
+                    <li class="category" id="0">All Products <span style="font-size: 25px;">▸</span></li>
+                    <li class="category" id="1">Home</li>
+                    <li class="category" id="2">Mobile</li>
+                    <li class="category" id="3">Music</li>
+                    <li class="category" id="4">Other</li>
                 </ul>
             </aside>
 
@@ -57,8 +57,8 @@
 
                 <div class="products-grid">
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/holder.jpg" alt=""></div>
+                    <article class="product" id="2">
+                        <div class="img-wrap"><img src="../assets/images/holder.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">Phone Holder</div>
                             <div class="price">$29.90</div>
@@ -68,8 +68,8 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/headphones.jpg" alt=""></div>
+                    <article class="product" id="3">
+                        <div class="img-wrap"><img src="../assets/images/headphones.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">Headsound</div>
                             <div class="price">$12.00</div>
@@ -79,8 +79,8 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/adudu.jpg" alt=""></div>
+                    <article class="product" id="1">
+                        <div class="img-wrap"><img src="../assets/images/adudu.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">Adudu Cleaner</div>
                             <div class="price">$29.90</div>
@@ -90,8 +90,8 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/cctv camera.jpg" alt=""></div>
+                    <article class="product" id="1">
+                        <div class="img-wrap"><img src="../assets/images/cctv camera.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">CCTV Camera</div>
                             <div class="price">$50.00</div>
@@ -101,8 +101,8 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/hub.jpg" alt=""></div>
+                    <article class="product" id="4">
+                        <div class="img-wrap"><img src="../assets/images/hub.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">Usp hub</div>
                             <div class="price">$9.90</div>
@@ -112,8 +112,8 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/cover.jpg" alt=""></div>
+                    <article class="product" id="2">
+                        <div class="img-wrap"><img src="../assets/images/cover.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">Mobile cover</div>
                             <div class="price">$34.10</div>
@@ -123,8 +123,8 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/earpods.jpg" alt=""></div>
+                    <article class="product" id="3">
+                        <div class="img-wrap"><img src="../assets/images/earpods.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">Wireless Earbuds</div>
                             <div class="price">$25.00</div>
@@ -134,8 +134,8 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/smart watch.jpg" alt=""></div>
+                    <article class="product" id="4">
+                        <div class="img-wrap"><img src="../assets/images/smart watch.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">Smart Watch</div>
                             <div class="price">$59.99</div>
@@ -145,8 +145,8 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/Bluetooth Speaker.jpg" alt=""></div>
+                    <article class="product" id="4">
+                        <div class="img-wrap"><img src="../assets/images/Bluetooth Speaker.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">Bluetooth Speaker</div>
                             <div class="price">$19.90</div>
@@ -156,8 +156,8 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/power.webp" alt=""></div>
+                    <article class="product" id="4">
+                        <div class="img-wrap"><img src="../assets/images/power.webp" alt=""></div>
                         <div class="meta">
                             <div class="name">Power Bank</div>
                             <div class="price">$15.50</div>
@@ -167,19 +167,19 @@
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/MacBook_ar.png" alt=""></div>
+                    <article class="product" id="4">
+                        <div class="img-wrap"><img src="../assets/images/MacBook_ar.png" alt=""></div>
                         <div class="meta">
                             <div class="name">Macbook ar</div>
-                            <div class="price">$8.50</div>
+                            <div class="price">$200.50</div>
                         </div>
                         <small class="muted">⭐ 4.9 (11k Reviews)</small>
                         <div class="actions"><button class="btn btn-add">Add to Cart</button><button
                                 class="btn btn-buy">Buy Now</button></div>
                     </article>
 
-                    <article class="product">
-                        <div class="img-wrap"><img src="/assets/images/stand.jpg" alt=""></div>
+                    <article class="product" id="4">
+                        <div class="img-wrap"><img src="../assets/images/stand.jpg" alt=""></div>
                         <div class="meta">
                             <div class="name">Laptop Stand</div>
                             <div class="price">$22.00</div>
@@ -197,37 +197,37 @@
 
             <div class="rec-grid">
                 <div class="rec-card">
-                    <img src="/assets/images/bujug.jpg" alt="">
+                    <img src="../assets/images/bujug.jpg" alt="">
                     <div class="rec-name">TWS Bujug</div>
                     <small class="muted">$29.90</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
                 <div class="rec-card">
-                    <img src="/assets/images/baptis.jpg" alt="">
+                    <img src="../assets/images/baptis.jpg" alt="">
                     <div class="rec-name">Headsound Baptis</div>
                     <small class="muted">$12.00</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
                 <div class="rec-card">
-                    <img src="/assets/images/cleaner.jpg" alt="">
+                    <img src="../assets/images/cleaner.jpg" alt="">
                     <div class="rec-name">Adudu Cleaner</div>
                     <small class="muted">$29.90</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
                 <div class="rec-card">
-                    <img src="/assets/images/mouse.avif" alt="">
+                    <img src="../assets/images/mouse.avif" alt="">
                     <div class="rec-name">Wireless Mouse</div>
                     <small class="muted">$14.50</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
                 <div class="rec-card">
-                    <img src="/assets/images/lamp.jpg" alt="">
+                    <img src="../assets/images/lamp.jpg" alt="">
                     <div class="rec-name">Smart Lamp</div>
                     <small class="muted">$18.00</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
                 <div class="rec-card">
-                    <img src="/assets/images/projector.jpg" alt="">
+                    <img src="../assets/images/projector.jpg" alt="">
                     <div class="rec-name">Mini Projector</div>
                     <small class="muted">$59.00</small>
                     <button class="btn btn-buy">Buy Now</button>
@@ -254,12 +254,17 @@
             </div>
             <div class="footer-col">
                 <strong>Social</strong>
-                <div>X • Facebook • LinkedIn • Instagram</div>
+                <div class="social">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                   <a href="#"> <i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
+                   <a href="#"> <i class="fa-brands fa-linkedin"></i></a>
+                </div>
                 <div style="margin-top:12px; color:#aaa; font-size:13px;">© 2025 gigastore</div>
             </div>
         </footer>
     </div>
-
+<script src="../assets/js/main.js"></script>
 </body>
 
 </html>
