@@ -44,6 +44,26 @@ body {
   padding: 18px 32px;
   border-bottom: 1px solid var(--border-color);
 }
+.cart-icon {
+  cursor: pointer;
+  font-size: 18px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#cart-count {
+  background: var(--primary-color);
+  color: var(--white);
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+
 
 .brand {
   display: flex;
@@ -376,4 +396,157 @@ body {
 .muted {
   color: var(--text-light);
   font-size: 12px;
+}
+
+/* =========================================
+   CHECKOUT PAGE STYLES
+   ========================================= */
+
+
+.main-container {
+    flex-grow: 1; 
+    display: flex; 
+    justify-content: center; /* توسيط أفقي */
+    align-items: center;     /* توسيط عمودي */
+    padding: 60px 40px;
+    /* ارتفاع الشاشة بالكامل مطروحاً منه ارتفاع الـ Header */
+    min-height: calc(100vh - 76px); 
+}
+
+/* تم إزالة كلاس .checkout-container لأنه غير مستخدم في checkout.html الجديد */
+.checkout-card .btn {
+    width: 100%; /* تأكد أن الأزرار تأخذ العرض الكامل */
+    font-size: 16px; /* جعل خط الأزرار أكبر قليلاً ليتناسب مع صفحة الدفع */
+    padding: 10px 20px;
+    margin-top: 10px; /* مسافة بين الأزرار */
+}
+
+/* تنسيق خاص لزر الرجوع لجعله تحت زر التأكيد */
+.checkout-card #back-btn {
+    margin-top: 5px; /* مسافة أقل بين الأزرار */
+    /* نستخدم هنا تنسيق btn-add (الأبيض/الرمادي) */
+}
+.checkout-page {
+  display: flex;
+  justify-content: center; /* أفقي */
+  align-items: center;     /* رأسي */
+  min-height: 80vh;        
+  background: var(--background-color);
+  padding: 20px; /* لضمان عدم التصاق الكارد بحواف الشاشة في الموبايل */
+}
+
+.checkout-card {
+  background: var(--white);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(10, 10, 12, 0.08);
+  max-width: 500px; /* زيادة العرض قليلاً لاستيعاب قائمة المنتجات */
+  width: 90%;
+  text-align: center;
+}
+
+.checkout-card h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px; /* زيادة المسافة بعد العنوان */
+    color: var(--text-dark);
+}
+
+/* ستايل قائمة المنتجات الجديدة */
+#product-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ستايل كل عنصر في قائمة المنتجات */
+#product-details li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--border-color); 
+    gap: 10px;
+}
+
+#product-details li:last-child {
+    border-bottom: none; /* إزالة الخط من آخر عنصر */
+}
+
+#product-details li img {
+    width: 60px; /* حجم أصغر لصور المنتجات داخل القائمة */
+    height: 60px;
+    object-fit: contain;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+#product-details li p {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-dark);
+    text-align: left;
+    margin: 0;
+    flex-grow: 1;
+}
+
+#product-details li strong {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+/* ستايل إجمالي المبلغ */
+.total-summary {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 2px solid var(--border-color);
+    font-size: 18px;
+    font-weight: 700;
+    text-align: right;
+}
+
+#total-price {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+/* تعديل أزرار الدفع لتظهر بشكل أفضل تحت الإجمالي */
+#confirm-btn, #back-btn {
+  /* ... (تبقى كما هي) ... */
+  margin: 10px 5px; /* زيادة المساحة حول الأزرار */
+  width: calc(50% - 10px); /* تقسيم الأزرار على سطر واحد */
+  font-size: 14px;
+}
+
+.remove-item-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 18px; /* حجم الأيقونة */
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0 5px; /* لتسهيل الضغط */
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+.remove-item-btn:hover {
+    color: var(--primary-color); /* يتغير اللون عند المرور فوقها */
+}
+
+/* تعديل عرض اسم المنتج لاستيعاب زر الحذف */
+#product-details li p {
+    /* ... (التنسيقات السابقة) ... */
+    flex-grow: 1;
+}
+
+/* في حالة الشاشة الصغيرة، الأزرار تأخذ عرض 100% */
+@media (max-width: 480px) {
+    #confirm-btn, #back-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
 }
