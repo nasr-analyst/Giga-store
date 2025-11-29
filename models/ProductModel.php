@@ -1,35 +1,55 @@
 <?php
-require_once 'config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
-class ProductModel {
+class ProductModel
+{
     private $db;
-    
-    
+
+    public function __construct()
+    {
+        // use the mysqli connection initialized in config/database.php
+        global $conn;
+        $this->db = $conn;
+    }
 
     // Get All Products
-    public function getAllProducts() {
-        $query = "SELECT * FROM Products";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getAllProducts()
+    {
+        $sql = "SELECT * FROM Products";
+        $res = $this->db->query($sql);
+        $rows = [];
+        if ($res) {
+            while ($r = $res->fetch_assoc()) {
+                $rows[] = $r;
+            }
+        }
+        return $rows;
     }
 
     // Get Product By Id
-    public function getProductById($id) {
-        $query = "SELECT * FROM Products WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    public function getProductById($id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM Products WHERE id = ?");
+        $stmt->bind_param('i', $id);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $res = $stmt->get_result();
+        return $res ? $res->fetch_assoc() : null;
     }
 
     // Get Products By Category
-    public function getProductsByCategory($categoryId) {
-        $query = "SELECT * FROM Products WHERE category_id = :categoryId";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
+    public function getProductsByCategory($categoryId)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM Products WHERE category_id = ?");
+        $stmt->bind_param('i', $categoryId);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $res = $stmt->get_result();
+        $rows = [];
+        if ($res) {
+            while ($r = $res->fetch_assoc()) {
+                $rows[] = $r;
+            }
+        }
+        return $rows;
     }
 }
 ?>
