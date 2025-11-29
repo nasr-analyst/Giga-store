@@ -4,10 +4,7 @@ require_once 'config/database.php';
 class ProductModel {
     private $db;
     
-    public function __construct() {
-        $database = new Database();
-        $this->db = $database->getConnection();
-    }
+    
 
     // Get All Products
     public function getAllProducts() {
