@@ -12,7 +12,6 @@ $products = $productModel->getAllProducts();
     <title>Giga Store</title>
     <link rel="stylesheet" href="../assets/css/store-style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
 </head>
 
 <body>
@@ -28,10 +27,11 @@ $products = $productModel->getAllProducts();
                     <input type="text" placeholder="Search for a product">
                     <button class="btn btn-search">Search</button>
                 </div>
-
-                <div>Home</div>
-                <div>Shop</div>
-                <div>Blog</div>
+                
+                <a href="index.php" style="text-decoration: none;color:#000;font-size:larger">Home</a>
+                <div class="cart-icon" onclick="goToCart()">
+          🛒 Cart <span id="cart-count">0</span>
+                </div>
             </nav>
         </header>
 
@@ -57,13 +57,14 @@ $products = $productModel->getAllProducts();
             <section class="main">
                 <div class="filters">
                     <div class="section-title">Products</div>
-
                 </div>
 
                 <div class="products-grid">
                     <?php foreach ($products as $p):
+                        // معالجة مسار الصورة ليتناسب مع views/index.php
                         $img = $p['image_url'] ?? '';
                         if ($img && strpos($img, 'http') !== 0 && strpos($img, '/') !== 0) {
+                            // إضافة '../' لجميع الصور التي لا تبدأ بـ http أو /
                             $img = '../' . ltrim($img, '/');
                         } elseif (!$img) {
                             $img = '../assets/images/holder.jpg';
@@ -71,7 +72,7 @@ $products = $productModel->getAllProducts();
                         ?>
                         <article class="product" id="<?= (int) ($p['category_id'] ?? 0) ?>">
                             <div class="img-wrap"><img src="<?= htmlspecialchars($img) ?>"
-                                    alt="<?= htmlspecialchars($p['name'] ?? '') ?>"></div>
+                                alt="<?= htmlspecialchars($p['name'] ?? '') ?>"></div>
                             <div class="meta">
                                 <div class="name"><?= htmlspecialchars($p['name'] ?? 'Unnamed') ?></div>
                                 <div class="price">$<?= number_format((float) ($p['price'] ?? 0), 2) ?></div>
@@ -160,6 +161,7 @@ $products = $productModel->getAllProducts();
         </footer>
     </div>
     <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/index.js"></script>
 </body>
 
 </html>

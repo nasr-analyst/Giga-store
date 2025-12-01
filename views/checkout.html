@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - Giga Store</title>
+  <link rel="stylesheet" href="../assets/css/store-style.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <img src="../assets/images/logo.png" alt="Giga Store Logo" width="100">
+    </div>
+    <h2>Checkout</h2>
+  </header>
+
+  <main class="main-container">
+    <div class="checkout-card">
+      <h2>Order Summary</h2>
+      <div id="product-details"></div>
+
+      <div class="total-summary" style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+          <strong>Total Amount: <span id="total-price">0.00 EGP</span></strong>
+      </div>
+      
+      <button id="confirm-btn" class="btn btn-buy" style="margin-top: 20px;">Confirm Purchase</button>
+      <button id="back-btn" class="btn btn-add">Back to Store</button>
+    </div>
+  </main>
+
+  <script>
+    const container = document.getElementById("product-details");
+    const totalEl = document.getElementById("total-price");
+    
+    // دالة تحديث عرض سلة المشتريات
+    function renderCart() {
+        // نجيب سلة المشتريات كلها
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        let totalPrice = 0;
+        
+        if (cart && cart.length > 0) {
+            let productsHtml = '<ul style="list-style: none; padding: 0;">';
+            
+            // نمر على كل منتج ونعرضه
+            cart.forEach((product, index) => {
+                // تنظيف السعر من رمز العملة لحساب المجموع
+                const priceValue = parseFloat(product.price.replace(/[^\d.]/g, ''));
+                totalPrice += priceValue;
+
+                productsHtml += `
+                  <li data-index="${index}" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed #eee; padding: 10px 0;">
+                    <img src="${product.image}" width="60" height="60" style="object-fit: contain; border-radius: 4px;" alt="${product.name}">
+                    <div style="flex-grow: 1; text-align: left; margin-left: 10px;">
+                        <p style="font-weight: 600; margin: 0;">${product.name}</p>
+                    </div>
+                    <strong>${product.price}</strong>
+                    <button class="remove-item-btn" data-index="${index}">🗑️</button>
+                  </li>
+                `;
+            });
+            productsHtml += '</ul>';
+            container.innerHTML = productsHtml;
+            
+            // تحديث إجمالي السعر
+            totalEl.textContent = `${totalPrice.toFixed(2)} EGP`;
+
+            // إضافة المستمعات لأزرار الحذف
+            document.querySelectorAll('.remove-item-btn').forEach(btn => {
+                btn.addEventListener('click', removeItem);
+            });
+
+        } else {
+            container.innerHTML = "<p>Your cart is empty. Please select a product.</p>";
+            totalEl.textContent = '0.00 EGP';
+            document.getElementById("confirm-btn").disabled = true;
+        }
+    }
+
+    // دالة حذف المنتج
+    function removeItem(e) {
+        const index = parseInt(e.currentTarget.getAttribute('data-index'));
+        let cart = JSON.parse(localStorage.getItem("cart"));
+        
+        if (cart && index >= 0 && index < cart.length) {
+            const removedItem = cart[index].name;
+            cart.splice(index, 1); // حذف منتج واحد في هذا الفهرس
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${removedItem} removed from cart.`);
+            renderCart(); // إعادة رسم السلة
+        }
+    }
+    
+    // عند تحميل الصفحة، نرسم السلة
+    renderCart();
+
+    // زرار التأكيد
+    document.getElementById("confirm-btn").addEventListener("click", () => {
+      alert("Purchase successful! Your order has been placed.");
+      localStorage.removeItem("cart"); 
+      window.location.href = "index.html";
+    });
+
+    // زرار الرجوع
+    document.getElementById("back-btn").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+
+</html>

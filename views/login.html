@@ -16,7 +16,7 @@
             <img src="../assets/images/logo.png" alt="Giga Store Logo" class="main-logo-img" width="100">
         </div>
         <nav class="header-nav">
-            <a href="#" class="nav-link">Home</a>
+            <a href="index.php" class="nav-link">Home</a>
             <a href="register.html" class="nav-link login-btn">Register</a>
         </nav>
     </header>
@@ -38,7 +38,7 @@
             <div class="login-card">
                 <h2>Login</h2>
 
-                <form action="#" method="post">
+                <form id="login-form" action="#" method="post">
 
                     <div class="form-group">
                         <label for="email">Email address</label>
@@ -96,8 +96,11 @@
         </div>
     </footer>
 
+
+
+
+    <script src="../assets/js/login.js"></script>
     <script>
-        // Attach behavior to every show-password-btn inside .password-group
         document.querySelectorAll('.password-group .show-password-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 // find the nearest input[type="password"] in the same .password-group
