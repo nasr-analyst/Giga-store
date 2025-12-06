@@ -22,30 +22,55 @@
       <div id="product-details"></div>
 
       <div class="total-summary" style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
-          <strong>Total Amount: <span id="total-price">0.00 EGP</span></strong>
+          <strong>Total Amount: <span id="total-price-display">0.00 EGP</span></strong>
       </div>
       
-      <button id="confirm-btn" class="btn btn-buy" style="margin-top: 20px;">Confirm Purchase</button>
-      <button id="back-btn" class="btn btn-add">Back to Store</button>
+      <form action="../controllers/OrderController.php" method="POST" id="checkout-form" style="margin-top: 20px; text-align: left;">
+          
+          <input type="hidden" name="action" value="create">
+          <input type="hidden" name="total_amount" id="hidden-total-price">
+          <h3 style="font-size: 16px; margin-bottom: 10px; color: #333;">Shipping Details</h3>
+          
+          <div style="margin-bottom: 10px;">
+              <input type="text" name="customer_name" placeholder="Full Name" required 
+                     style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
+          </div>
+
+          <div style="margin-bottom: 10px;">
+              <input type="email" name="customer_email" placeholder="Email Address" required 
+                     style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
+          </div>
+
+          <div style="margin-bottom: 10px;">
+              <input type="tel" name="customer_phone" placeholder="Phone Number" required 
+                     style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
+          </div>
+
+          <div style="margin-bottom: 15px;">
+              <textarea name="shipping_address" placeholder="Shipping Address (City, Street, Building...)" required rows="3"
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit;"></textarea>
+          </div>
+
+          <button type="submit" id="confirm-btn" class="btn btn-buy" style="width: 100%;">Confirm Purchase</button>
+      </form>
+      <button id="back-btn" class="btn btn-add" style="margin-top: 10px;">Back to Store</button>
     </div>
   </main>
 
   <script>
     const container = document.getElementById("product-details");
-    const totalEl = document.getElementById("total-price");
-    
+    const totalEl = document.getElementById("total-price-display"); // غيرنا الاسم عشان ميتعارضش
+    const hiddenTotalInput = document.getElementById("hidden-total-price"); // الحقل المخفي
+
     // دالة تحديث عرض سلة المشتريات
     function renderCart() {
-        // نجيب سلة المشتريات كلها
         const cart = JSON.parse(localStorage.getItem("cart"));
         let totalPrice = 0;
         
         if (cart && cart.length > 0) {
             let productsHtml = '<ul style="list-style: none; padding: 0;">';
             
-            // نمر على كل منتج ونعرضه
             cart.forEach((product, index) => {
-                // تنظيف السعر من رمز العملة لحساب المجموع
                 const priceValue = parseFloat(product.price.replace(/[^\d.]/g, ''));
                 totalPrice += priceValue;
 
@@ -56,57 +81,62 @@
                         <p style="font-weight: 600; margin: 0;">${product.name}</p>
                     </div>
                     <strong>${product.price}</strong>
-                    <button class="remove-item-btn" data-index="${index}">🗑️</button>
+                    <button class="remove-item-btn" data-index="${index}" type="button">🗑️</button>
                   </li>
                 `;
             });
             productsHtml += '</ul>';
             container.innerHTML = productsHtml;
             
-            // تحديث إجمالي السعر
+            // تحديث العرض + تحديث الحقل المخفي للباك إند
             totalEl.textContent = `${totalPrice.toFixed(2)} EGP`;
+            hiddenTotalInput.value = totalPrice.toFixed(2); // هذا السطر مهم جداً للـ Controller
 
-            // إضافة المستمعات لأزرار الحذف
             document.querySelectorAll('.remove-item-btn').forEach(btn => {
                 btn.addEventListener('click', removeItem);
             });
+            
+            document.getElementById("confirm-btn").disabled = false;
 
         } else {
             container.innerHTML = "<p>Your cart is empty. Please select a product.</p>";
             totalEl.textContent = '0.00 EGP';
+            hiddenTotalInput.value = 0;
             document.getElementById("confirm-btn").disabled = true;
         }
     }
 
-    // دالة حذف المنتج
+    // دالة حذف المنتج (زي ما هي)
     function removeItem(e) {
+        // منع إعادة تحميل الصفحة لو الزرار كان داخل فورم
+        e.preventDefault(); 
+        
         const index = parseInt(e.currentTarget.getAttribute('data-index'));
         let cart = JSON.parse(localStorage.getItem("cart"));
         
         if (cart && index >= 0 && index < cart.length) {
             const removedItem = cart[index].name;
-            cart.splice(index, 1); // حذف منتج واحد في هذا الفهرس
+            cart.splice(index, 1);
             localStorage.setItem("cart", JSON.stringify(cart));
             alert(`${removedItem} removed from cart.`);
-            renderCart(); // إعادة رسم السلة
+            renderCart();
         }
     }
     
-    // عند تحميل الصفحة، نرسم السلة
     renderCart();
 
-    // زرار التأكيد
-    document.getElementById("confirm-btn").addEventListener("click", () => {
-      alert("Purchase successful! Your order has been placed.");
-      localStorage.removeItem("cart"); 
-      window.location.href = "index.html";
+    // تعديل بسيط: عند إرسال الفورم بنجاح، نقوم بمسح السلة
+    // (اختياري: يفضل عمل هذا في صفحة النجاح، لكن سنتركه هنا للتبسيط)
+    document.getElementById("checkout-form").addEventListener("submit", () => {
+        // سنسمح للفورم بالإرسال للـ PHP، لكن سنمسح الـ localStorage
+        // عشان لما يرجع يلاقي السلة فاضية
+        localStorage.removeItem("cart");
     });
 
-    // زرار الرجوع
-    document.getElementById("back-btn").addEventListener("click", () => {
+    document.getElementById("back-btn").addEventListener("click", (e) => {
+      e.preventDefault(); // منع أي سلوك افتراضي
       window.location.href = "index.html";
     });
   </script>
 </body>
-
 </html>
