@@ -1,7 +1,11 @@
 <?php
+session_start();
 require_once __DIR__ . '/../models/ProductModel.php';
 $productModel = new ProductModel();
 $products = $productModel->getAllProducts();
+
+$isLoggedIn = isset($_SESSION['user_id']);
+$userName = $_SESSION['user_name'] ?? 'Guest';
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,10 +31,19 @@ $products = $productModel->getAllProducts();
                     <input type="text" placeholder="Search for a product">
                     <button class="btn btn-search">Search</button>
                 </div>
-                
+
                 <a href="index.php" style="text-decoration: none;color:#000;font-size:larger">Home</a>
+
+                <?php if ($isLoggedIn): ?>
+                    <span style="color: #555;">Welcome, <?= htmlspecialchars($userName) ?>!</span>
+                    <a href="../controllers/AuthController.php?action=logout"
+                        style="text-decoration: none;color:#f77f48;font-weight:500">Logout</a>
+                <?php else: ?>
+                    <a href="login.php" style="text-decoration: none;color:#f77f48;font-weight:500">Login</a>
+                <?php endif; ?>
+
                 <div class="cart-icon" onclick="goToCart()">
-          🛒 Cart <span id="cart-count">0</span>
+                    🛒 Cart <span id="cart-count">0</span>
                 </div>
             </nav>
         </header>
@@ -61,18 +74,17 @@ $products = $productModel->getAllProducts();
 
                 <div class="products-grid">
                     <?php foreach ($products as $p):
-                        // معالجة مسار الصورة ليتناسب مع views/index.php
                         $img = $p['image_url'] ?? '';
                         if ($img && strpos($img, 'http') !== 0 && strpos($img, '/') !== 0) {
-                            // إضافة '../' لجميع الصور التي لا تبدأ بـ http أو /
                             $img = '../' . ltrim($img, '/');
                         } elseif (!$img) {
                             $img = '../assets/images/holder.jpg';
                         }
                         ?>
-                        <article class="product" id="<?= (int) ($p['category_id'] ?? 0) ?>">
+                        <article class="product" id="<?= (int) ($p['category_id'] ?? 0) ?>"
+                            data-product-id="<?= (int) $p['id'] ?>">
                             <div class="img-wrap"><img src="<?= htmlspecialchars($img) ?>"
-                                alt="<?= htmlspecialchars($p['name'] ?? '') ?>"></div>
+                                    alt="<?= htmlspecialchars($p['name'] ?? '') ?>"></div>
                             <div class="meta">
                                 <div class="name"><?= htmlspecialchars($p['name'] ?? 'Unnamed') ?></div>
                                 <div class="price">$<?= number_format((float) ($p['price'] ?? 0), 2) ?></div>
@@ -92,37 +104,37 @@ $products = $productModel->getAllProducts();
             <div class="section-title" style="padding-left:36px;">Our Recommendations</div>
 
             <div class="rec-grid">
-                <div class="rec-card">
+                <div class="rec-card" data-product-id="13">
                     <img src="../assets/images/bujug.jpg" alt="">
                     <div class="rec-name">TWS Bujug</div>
                     <small class="muted">$29.90</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
-                <div class="rec-card">
+                <div class="rec-card" data-product-id="14">
                     <img src="../assets/images/baptis.jpg" alt="">
                     <div class="rec-name">Headsound Baptis</div>
                     <small class="muted">$12.00</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
-                <div class="rec-card">
+                <div class="rec-card" data-product-id="15">
                     <img src="../assets/images/cleaner.jpg" alt="">
                     <div class="rec-name">Adudu Cleaner</div>
                     <small class="muted">$29.90</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
-                <div class="rec-card">
+                <div class="rec-card" data-product-id="16">
                     <img src="../assets/images/mouse.avif" alt="">
                     <div class="rec-name">Wireless Mouse</div>
                     <small class="muted">$14.50</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
-                <div class="rec-card">
+                <div class="rec-card" data-product-id="17">
                     <img src="../assets/images/lamp.jpg" alt="">
                     <div class="rec-name">Smart Lamp</div>
                     <small class="muted">$18.00</small>
                     <button class="btn btn-buy">Buy Now</button>
                 </div>
-                <div class="rec-card">
+                <div class="rec-card" data-product-id="18">
                     <img src="../assets/images/projector.jpg" alt="">
                     <div class="rec-name">Mini Projector</div>
                     <small class="muted">$59.00</small>

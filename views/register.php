@@ -16,8 +16,8 @@
             <img src="../assets/images/logo.png" alt="Giga Store Logo" class="main-logo-img" width="100">
         </div>
         <nav class="header-nav">
-            <a href="#" class="nav-link">Home</a>
-            <a href="login.html" class="nav-link login-btn">Sign In</a>
+            <a href="index.php" class="nav-link">Home</a>
+            <a href="login.php" class="nav-link login-btn">Sign In</a>
         </nav>
     </header>
 
@@ -41,7 +41,17 @@
             <div class="login-card">
                 <h2>Register</h2>
 
-                <form id="register-form" action="#" method="post">
+                <?php
+                session_start();
+                if (isset($_SESSION['error'])) {
+                    echo '<div style="background: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; margin-bottom: 15px;">'
+                        . htmlspecialchars($_SESSION['error']) . '</div>';
+                    unset($_SESSION['error']);
+                }
+                ?>
+
+                <form action="../controllers/AuthController.php" method="post">
+                    <input type="hidden" name="action" value="register">
 
                     <div class="form-group">
                         <label for="name">Full Name</label>
@@ -77,7 +87,7 @@
                     <button type="submit" class="sign-in-btn">Create Account</button>
 
                     <p class="terms-text" style="margin-top: 15px;">
-                        Already have an account? <a href="login.html" class="terms-link">Sign in</a>
+                        Already have an account? <a href="login.php" class="terms-link">Sign in</a>
                     </p>
                 </form>
             </div>
@@ -110,13 +120,10 @@
 
         </div>
     </footer>
-    
-    <script src="../assets/js/register.js"></script>
+
     <script>
-        // Attach behavior to every show-password-btn inside .password-group
         document.querySelectorAll('.password-group .show-password-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // find the nearest input[type="password"] in the same .password-group
                 const group = btn.closest('.password-group');
                 if (!group) return;
                 const input = group.querySelector('input[type="password"], input[type="text"]');

@@ -3,7 +3,7 @@
 // تأكد إن المستخدم عامل تسجيل دخول
 // const loggedUser = localStorage.getItem("currentUser");
 // if (!loggedUser) {
-//   window.location.href = "login.html";
+//   window.location.href = "login.php";
 // }
 
 // نجيب كل أزرار الشراء والإضافة
@@ -18,7 +18,17 @@ function addProductToCart(productElement) {
     const price = priceText.replace(/\$|EGP/g, "").trim(); 
     const image = productElement.querySelector("img").src;
 
-    const product = { name, price: priceText, image }; // نحفظ النص الأصلي للسعر
+    // استخراج معرف المنتج من خاصية البيانات لعنصر المقالة أو حقل مخفي
+    // حالياً، سنستخدم عنصر نائب - يجب عليك إضافة data-product-id لـ HTML الخاص بك
+    const productId = parseInt(productElement.getAttribute('data-product-id')) || 0;
+
+    const product = { 
+        id: productId, // ضروري: مطلوب لإدخال تفاصيل الطلب
+        name, 
+        price: priceText, 
+        image,
+        quantity: 1 
+    }; // نحفظ النص الأصلي للسعر
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     
     // إضافة المنتج للسلة
@@ -35,7 +45,7 @@ buyButtons.forEach((btn) => {
     const product = addProductToCart(productElement); // أضف المنتج إلى السلة
     
     alert(`${product.name} added to cart. Redirecting to checkout.`);
-    window.location.href = "checkout.html"; // انتقل مباشرة لصفحة الدفع
+    window.location.href = "checkout.php"; // انتقل مباشرة لصفحة الدفع
   });
 });
 
@@ -52,7 +62,7 @@ addButtons.forEach((btn) => {
 
 // فتح صفحة الكارت (التي أصبحت الآن صفحة الدفع)
 function goToCart() {
-  window.location.href = "checkout.html";
+  window.location.href = "checkout.php";
 }
 
 // تحديث عدد المنتجات في الكارت

@@ -1,40 +1,22 @@
 <?php
+// Minimal stub for OrderController.php — backend to be implemented by another developer.
+// Accepts POST from the frontend and returns a clear JSON "not implemented" response.
 
-require_once '../config/database.php'; // Database connection    
-require_once '../models/OrderModel.php'; // get Order model functions  
-
-// if customer creates a new order
-if (isset($_POST['action']) && $_POST['action'] == 'create') {
-    $user_id = $_POST['user_id'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $address = $_POST['address'];
-    $total = $_POST['total'];
-
-    // نداء للموديل
-    $new_id = create_order($conn, $user_id, $name, $email, $phone, $address, $total);
-
-    if ($new_id) {
-        header("Location: index.php?msg=success");
-    } else {
-        echo "Error creating order!";
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Return 501 Not Implemented for POST so frontend and integrator know it's a placeholder
+    http_response_code(501);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode([
+        'success' => false,
+        'message' => 'Order endpoint not implemented. Backend developer must implement create order logic.',
+        'notes' => 'Expect POST fields: action=create, total_amount, cart_items (JSON), customer_*'
+    ]);
+    exit;
 }
 
-// if the admin updates order status
-if (isset($_POST['action']) && $_POST['action'] == 'update_status') {
-    $id = $_POST['order_id'];
-    $status = $_POST['status'];
-
-    update_order_status($conn, $id, $status);
-    header("Location: index.php");
-}
-
-// if the admin deletes an order
-if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-    $id = $_GET['id'];
-    delete_order($conn, $id);
-    header("Location: index.php");
-}
+// For GET show a small note for the integrator
+http_response_code(200);
+header('Content-Type: text/plain; charset=utf-8');
+echo "OrderController placeholder. Implement POST handling for order creation.";
+exit;
 ?>

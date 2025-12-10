@@ -17,7 +17,7 @@
         </div>
         <nav class="header-nav">
             <a href="index.php" class="nav-link">Home</a>
-            <a href="register.html" class="nav-link login-btn">Register</a>
+            <a href="register.php" class="nav-link login-btn">Register</a>
         </nav>
     </header>
 
@@ -38,7 +38,22 @@
             <div class="login-card">
                 <h2>Login</h2>
 
-                <form id="login-form" action="#" method="post">
+                <?php
+                session_start();
+                if (isset($_SESSION['error'])) {
+                    echo '<div style="background: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; margin-bottom: 15px;">'
+                        . htmlspecialchars($_SESSION['error']) . '</div>';
+                    unset($_SESSION['error']);
+                }
+                if (isset($_SESSION['success'])) {
+                    echo '<div style="background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 4px; margin-bottom: 15px;">'
+                        . htmlspecialchars($_SESSION['success']) . '</div>';
+                    unset($_SESSION['success']);
+                }
+                ?>
+
+                <form action="../controllers/AuthController.php" method="post">
+                    <input type="hidden" name="action" value="login">
 
                     <div class="form-group">
                         <label for="email">Email address</label>
@@ -47,8 +62,7 @@
 
                     <div class="form-group password-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Choose a secure password"
-                            required>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
                         <button type="button" class="show-password-btn">Show</button>
                     </div>
 
@@ -96,14 +110,9 @@
         </div>
     </footer>
 
-
-
-
-    <script src="../assets/js/login.js"></script>
     <script>
         document.querySelectorAll('.password-group .show-password-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // find the nearest input[type="password"] in the same .password-group
                 const group = btn.closest('.password-group');
                 if (!group) return;
                 const input = group.querySelector('input[type="password"], input[type="text"]');
