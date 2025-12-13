@@ -302,7 +302,7 @@ body {
 }
 
 .btn-add:hover {
-  background: #f0f0f0;
+  background: #8f8484;
 }
 
 .btn-buy {
@@ -312,8 +312,7 @@ body {
 }
 
 .btn-buy:hover {
-  background: var(--primary-hover);
-  /* تغميق اللون عند الهوفر */
+  background: #8f8484;
 }
 
 /* Recommendations */
