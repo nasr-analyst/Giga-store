@@ -76,8 +76,8 @@ $isAdmin = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin')
             <aside class="sidebar">
                 <h3>Categories</h3>
                 <ul class="categories">
-                    <li class="category" id="0">All Products <span style="font-size: 25px;">▸</span></li>
-                    <li class="category" id="1">Home</li>
+                    <li class="category" id="0">All Products <span style="font-size: 25px;"></span></li>
+                    <li class="category" id="1">Home products</li>
                     <li class="category" id="2">Mobile</li>
                     <li class="category" id="3">Music</li>
                     <li class="category" id="4">Other</li>
