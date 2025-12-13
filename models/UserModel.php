@@ -100,6 +100,38 @@ class UserModel
         }
         return $users;
     }
+
+    // Get user by email (returns assoc array or null)
+    public function getUserByEmail(string $email): ?array
+    {
+        $stmt = $this->db->prepare("SELECT id, full_name, email, phone, address, country, role FROM Users WHERE email = ?");
+        if (!$stmt) {
+            error_log("getUserByEmail prepare error: " . $this->db->error);
+            return null;
+        }
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $user = $res ? $res->fetch_assoc() : null;
+        $stmt->close();
+        return $user;
+    }
+
+    // Delete a user by id (admin)
+    public function deleteUser(int $id): bool
+    {
+        $stmt = $this->db->prepare("DELETE FROM Users WHERE id = ?");
+        if (!$stmt) {
+            error_log("deleteUser prepare error: " . $this->db->error);
+            return false;
+        }
+        $stmt->bind_param('i', $id);
+        $ok = $stmt->execute();
+        if (!$ok)
+            error_log("deleteUser execute error: " . $stmt->error);
+        $stmt->close();
+        return $ok;
+    }
 }
 
 ?>

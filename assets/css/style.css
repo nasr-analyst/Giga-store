@@ -1,6 +1,6 @@
 /*  الألوان الأساسية ودي تسهيلا بدل ما نفضل نكتب الاكواد كل شوية */
 :root {
-    --primary-color: #f77f48; 
+    --primary-color: #f77f48;
     --background-color: #f8f7f5;
     --text-dark: #333;
     --text-medium: #555;
@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     color: var(--text-dark);
-    direction: ltr; 
+    direction: ltr;
 }
 
 /* -------------------- رأس الصفحة (Header) -------------------- */
@@ -48,15 +48,17 @@ body {
 }
 
 .header-nav .login-btn {
-    background-color: var(--primary-color); /* #f77f48 */
+    background-color: var(--primary-color);
+    /* #f77f48 */
     color: white;
     padding: 8px 20px;
     border-radius: 6px;
     font-weight: 500;
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
 }
+
 .header-nav .login-btn:hover {
-    background-color: #e66e37; 
+    background-color: #e66e37;
     box-shadow: 0 4px 8px rgba(247, 127, 72, 0.4);
     transform: translateY(-2px);
 }
@@ -83,30 +85,30 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center; 
+    text-align: center;
 }
 
 .logo-image-container {
-    margin-bottom: 5px; 
-    display: block; 
+    margin-bottom: 5px;
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    width: fit-content; 
+    width: fit-content;
 }
 
 .main-logo-img {
-    max-width: 350px; 
-    height: auto; 
+    max-width: 350px;
+    height: auto;
     display: block;
 }
 
 .sign-in-title {
     font-size: 44px;
     font-weight: 700;
-    margin-top: 5px; 
+    margin-top: 5px;
     margin-bottom: 10px;
     color: #FE7743;
-    
+
 }
 
 .sign-in-text {
@@ -115,10 +117,11 @@ body {
     line-height: 1.6;
     color: #273F4F;
 }
+
 .made-in-egypt {
     color: var(--text-dark);
     font-weight: 700;
-    margin-top: 5px; 
+    margin-top: 5px;
     margin-bottom: 10px;
 }
 
@@ -139,7 +142,7 @@ body {
 }
 
 .form-group {
-    margin-bottom: 18px; 
+    margin-bottom: 18px;
 }
 
 .form-group label {
@@ -241,16 +244,16 @@ body {
 /* دا علشان نخلي القسمسن جنب بعض*/
 .footer-content-revised {
     display: flex;
-    justify-content: space-between; 
-    align-items: flex-start; 
+    justify-content: space-between;
+    align-items: flex-start;
     max-width: 1050px;
     margin: 0 auto;
-    gap: 30px; 
+    gap: 30px;
 }
 
 /* تنسيق كل قسم فرعي في الفوتر */
 .footer-section-item {
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
 .footer-section-item h4 {
@@ -261,21 +264,39 @@ body {
 
 /* الروابط الافقية */
 .footer-section-item a {
-    display: inline-block; 
-    margin-right: 15px; 
-    margin-bottom: 0; 
-    
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 0;
+
     color: var(--text-light);
     text-decoration: none;
     transition: color 0.2s;
 }
+
 .footer-section-item p {
-    display: block; 
+    display: block;
     line-height: 1.5;
     margin-bottom: 5px;
 }
 
 .copyright-section {
-    text-align: right; 
+    text-align: right;
     align-self: flex-end;
+}
+
+/* alerts used by login/register pages */
+.alert-error {
+    background: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.alert-success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
 }

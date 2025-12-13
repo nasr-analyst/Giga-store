@@ -129,6 +129,23 @@ function get_all_orders($conn)
     return $rows;
 }
 
+// (Read) — add helper to fetch orders for one user
+function get_orders_by_user($conn, $user_id)
+{
+    $stmt = $conn->prepare("SELECT id, total_amount, order_status, created_at FROM Orders WHERE user_id = ? ORDER BY created_at DESC");
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $rows = [];
+    if ($res) {
+        while ($r = $res->fetch_assoc())
+            $rows[] = $r;
+        $res->free();
+    }
+    $stmt->close();
+    return $rows;
+}
+
 // (Update)
 function update_order_status($conn, $id, $status)
 {
@@ -141,6 +158,45 @@ function update_order_status($conn, $id, $status)
     $ok = $stmt->execute();
     if (!$ok)
         error_log('update_order_status execute error: ' . $stmt->error);
+    $stmt->close();
+    return $ok;
+}
+
+// (Update) - add this function
+function cancel_order($conn, $id)
+{
+    // Only allow cancelling if status is 'Pending'
+    $stmt = $conn->prepare("SELECT order_status FROM Orders WHERE id = ?");
+    if (!$stmt) {
+        error_log('cancel_order check prepare error: ' . $conn->error);
+        return false;
+    }
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $order = $res ? $res->fetch_assoc() : null;
+    $stmt->close();
+
+    if (!$order) {
+        error_log("cancel_order: order {$id} not found");
+        return false;
+    }
+
+    if ($order['order_status'] !== 'Pending') {
+        error_log("cancel_order: order {$id} status is {$order['order_status']}, not Pending");
+        return false;
+    }
+
+    // Update status to 'Cancelled'
+    $stmt = $conn->prepare("UPDATE Orders SET order_status = 'Cancelled' WHERE id = ?");
+    if (!$stmt) {
+        error_log('cancel_order update prepare error: ' . $conn->error);
+        return false;
+    }
+    $stmt->bind_param('i', $id);
+    $ok = $stmt->execute();
+    if (!$ok)
+        error_log('cancel_order update error: ' . $stmt->error);
     $stmt->close();
     return $ok;
 }

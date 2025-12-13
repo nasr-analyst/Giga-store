@@ -44,8 +44,7 @@
                 <?php
                 session_start();
                 if (isset($_SESSION['error'])) {
-                    echo '<div style="background: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; margin-bottom: 15px;">'
-                        . htmlspecialchars($_SESSION['error']) . '</div>';
+                    echo '<div class="alert-error">'.htmlspecialchars($_SESSION['error']).'</div>';
                     unset($_SESSION['error']);
                 }
                 ?>

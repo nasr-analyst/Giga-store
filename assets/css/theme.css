@@ -1,0 +1,56 @@
+:root {
+    --primary-color: #f77f48;
+    --background: #f8f7f5;
+    --card-bg: #ffffff;
+    --text: #222;
+    --muted: #666;
+}
+
+.theme-light {
+    --primary-color: #f77f48;
+    --background: #f8f7f5;
+    --card-bg: #fff;
+    --text: #222;
+    --muted: #666;
+}
+
+.theme-dark {
+    --primary-color: #ffa56a;
+    --background: #0f1720;
+    --card-bg: #11151a;
+    --text: #e6eef6;
+    --muted: #9aa6b2;
+}
+
+/* Generic page-level defaults */
+body {
+    background: var(--background);
+    color: var(--text);
+}
+
+a {
+    color: var(--primary-color);
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    color: var(--text);
+    transition: background .18s, color .18s, transform .12s;
+}
+
+.theme-toggle:active {
+    transform: scale(.98);
+}
+
+.theme-toggle i {
+    font-size: 16px;
+    pointer-events: none;
+}

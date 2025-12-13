@@ -41,13 +41,11 @@
                 <?php
                 session_start();
                 if (isset($_SESSION['error'])) {
-                    echo '<div style="background: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; margin-bottom: 15px;">'
-                        . htmlspecialchars($_SESSION['error']) . '</div>';
+                    echo '<div class="alert-error">' . htmlspecialchars($_SESSION['error']) . '</div>';
                     unset($_SESSION['error']);
                 }
                 if (isset($_SESSION['success'])) {
-                    echo '<div style="background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 4px; margin-bottom: 15px;">'
-                        . htmlspecialchars($_SESSION['success']) . '</div>';
+                    echo '<div class="alert-success">' . htmlspecialchars($_SESSION['success']) . '</div>';
                     unset($_SESSION['success']);
                 }
                 ?>

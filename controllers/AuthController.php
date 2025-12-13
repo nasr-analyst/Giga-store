@@ -1,6 +1,9 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config/database.php';
+
+require_once __DIR__ . '/../models/UserModel.php';
+
+$userModel = new UserModel();
 
 // Handle Login
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
@@ -13,15 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT id, full_name, email, password_hash, role FROM Users WHERE email = ?");
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-    $stmt->close();
-
-    if ($user && password_verify($password, $user['password_hash'])) {
-        // Login successful
+    // Use model to authenticate
+    $user = $userModel->loginUser($email, $password);
+    if ($user) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['full_name'];
         $_SESSION['user_email'] = $user['email'];
@@ -42,9 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
     $confirmPassword = trim($_POST['confirm-password'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $address = trim($_POST['address'] ?? '');
+    $country = trim($_POST['country'] ?? '');
 
     if (empty($name) || empty($email) || empty($password)) {
-        $_SESSION['error'] = 'Please fill all fields';
+        $_SESSION['error'] = 'Please fill all required fields';
         header('Location: ../views/register.php');
         exit;
     }
@@ -55,32 +55,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         exit;
     }
 
-    // Check if email already exists
-    $stmt = $conn->prepare("SELECT id FROM Users WHERE email = ?");
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
+    // Check email via model
+    $existing = $userModel->getUserByEmail($email);
+    if ($existing) {
         $_SESSION['error'] = 'Email already registered';
         header('Location: ../views/register.php');
         exit;
     }
-    $stmt->close();
 
-    // Hash password and insert new user
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO Users (full_name, email, password_hash, role) VALUES (?, ?, ?, 'customer')");
-    $stmt->bind_param('sss', $name, $email, $passwordHash);
-
-    if ($stmt->execute()) {
+    // Use model to register
+    $ok = $userModel->registerUser($name, $email, $password, $phone, $address, $country);
+    if ($ok) {
         $_SESSION['success'] = 'Registration successful! Please login.';
         header('Location: ../views/login.php');
+        exit;
     } else {
+        // Insertion failed (DB constraint or other error)
         $_SESSION['error'] = 'Registration failed. Please try again.';
         header('Location: ../views/register.php');
+        exit;
     }
-    $stmt->close();
-    exit;
 }
 
 // Handle Logout

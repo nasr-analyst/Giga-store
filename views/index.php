@@ -6,6 +6,7 @@ $products = $productModel->getAllProducts();
 
 $isLoggedIn = isset($_SESSION['user_id']);
 $userName = $_SESSION['user_name'] ?? 'Guest';
+$isAdmin = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin');
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,11 +16,12 @@ $userName = $_SESSION['user_name'] ?? 'Guest';
     <meta name="viewport" content="width=1200" />
     <title>Giga Store</title>
     <link rel="stylesheet" href="../assets/css/store-style.css" />
+    <link rel="stylesheet" href="../assets/css/theme.css" />
+    <link rel="stylesheet" href="../assets/css/pages.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
-
     <div class="page">
         <header class="header">
             <div class="brand">
@@ -28,18 +30,30 @@ $userName = $_SESSION['user_name'] ?? 'Guest';
 
             <nav class="nav">
                 <div class="search">
-                    <input type="text" placeholder="Search for a product">
-                    <button class="btn btn-search">Search</button>
+                    <input id="product-search" type="text" placeholder="Search for a product">
+                    <button class="btn btn-search" title="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                 </div>
 
-                <a href="index.php" style="text-decoration: none;color:#000;font-size:larger">Home</a>
+                <!-- theme toggle (switch with icon) -->
+                <button id="theme-toggle-btn" class="theme-toggle" aria-pressed="false" title="Toggle theme"></button>
+
+                <a href="index.php" class="nav-link">Home</a>
 
                 <?php if ($isLoggedIn): ?>
-                    <span style="color: #555;">Welcome, <?= htmlspecialchars($userName) ?>!</span>
-                    <a href="../controllers/AuthController.php?action=logout"
-                        style="text-decoration: none;color:#f77f48;font-weight:500">Logout</a>
+                    <a href="orders.php" class="nav-link">Orders</a>
+                <?php endif; ?>
+
+                <?php if ($isAdmin): ?>
+                    <a href="dashboard.php" class="nav-link">Dashboard</a>
+                <?php endif; ?>
+
+                <?php if ($isLoggedIn): ?>
+                    <span class="nav-link">Welcome, <?= htmlspecialchars($userName) ?>!</span>
+                    <a href="../controllers/AuthController.php?action=logout" class="nav-link">Logout</a>
                 <?php else: ?>
-                    <a href="login.php" style="text-decoration: none;color:#f77f48;font-weight:500">Login</a>
+                    <a href="login.php" class="nav-link">Login</a>
                 <?php endif; ?>
 
                 <div class="cart-icon" onclick="goToCart()">
@@ -52,6 +66,10 @@ $userName = $_SESSION['user_name'] ?? 'Guest';
             <div class="title">Give All You Need</div>
         </section>
 
+        <script>
+            // expose current user id to JS (for per-user cart)
+            window.CURRENT_USER_ID = <?= $isLoggedIn ? (int) $_SESSION['user_id'] : 0 ?>;
+        </script>
 
         <main class="content">
 
@@ -172,8 +190,8 @@ $userName = $_SESSION['user_name'] ?? 'Guest';
             </div>
         </footer>
     </div>
+    <script src="../assets/js/theme.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/index.js"></script>
 </body>
 
 </html>
