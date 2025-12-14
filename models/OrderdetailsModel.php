@@ -10,6 +10,24 @@ class OrderDetailsModel
         global $conn;
         $this->db = $conn;
     }
+    
+public function createOrderDetail(
+        int $orderId,
+        int $productId,
+        int $quantity,
+        float $price
+    ): bool {
+        $stmt = $this->db->prepare(
+            "INSERT INTO Order_Details (order_id, product_id, quantity, price)
+             VALUES (?, ?, ?, ?)"
+        );
+
+        $stmt->bind_param('iiid', $orderId, $productId, $quantity, $price);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
 
     // Get all order details
     public function getAllOrderDetails()

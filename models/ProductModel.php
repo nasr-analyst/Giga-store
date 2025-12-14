@@ -12,6 +12,26 @@ class ProductModel
         $this->db = $conn;
     }
 
+public function createProduct(
+        string $name,
+        string $description,
+        float $price,
+        ?string $imageUrl,
+        int $categoryId
+    ): bool {
+        $stmt = $this->db->prepare(
+            "INSERT INTO Products (name, description, price, image_url, category_id)
+             VALUES (?, ?, ?, ?, ?)"
+        );
+
+        $stmt->bind_param('ssdsi', $name, $description, $price, $imageUrl, $categoryId);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
+
     // Get All Products
     public function getAllProducts()
     {
@@ -51,5 +71,41 @@ class ProductModel
         }
         return $rows;
     }
+
+public function updateProduct(
+        int $id,
+        string $name,
+        string $description,
+        float $price,
+        ?string $imageUrl,
+        int $categoryId
+    ): bool {
+        $stmt = $this->db->prepare(
+            "UPDATE Products
+             SET name = ?, description = ?, price = ?, image_url = ?, category_id = ?
+             WHERE id = ?"
+        );
+
+        $stmt->bind_param('ssdsi i', $name, $description, $price, $imageUrl, $categoryId, $id);
+        //  PHP needs the types without space → fix below
+        $stmt->bind_param('ssd sii', $name, $description, $price, $imageUrl, $categoryId, $id);
+
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
+     public function deleteProduct(int $id): bool
+    {
+        $stmt = $this->db->prepare("DELETE FROM Products WHERE id = ?");
+        $stmt->bind_param('i', $id);
+
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
 }
 ?>
