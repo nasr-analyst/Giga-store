@@ -24,53 +24,46 @@ $isAdmin = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin')
 <body>
     <div class="page">
         <header class="header">
-    <div class="header-left">
-        <div class="brand">
-            <img src="../assets/images/logo.png" alt="logo" class="logo">
-        </div>
-        <div class="search">
-            <input id="product-search" type="text" placeholder="Search for a product">
-            <button class="btn btn-search" title="Search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
-    </div>
+            <div class="header-left">
+                <div class="brand">
+                    <img src="../assets/images/logo.png" alt="logo" class="logo">
+                </div>
+                <div class="search">
+                    <input id="product-search" type="text" placeholder="Search for a product">
+                    <button class="btn btn-search" title="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
 
-    <div class="header-center">
-        <?php if ($isLoggedIn): ?>
-            <span style="color: #555; max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; vertical-align: middle; margin-right: 15px;">
-                Welcome, <?= htmlspecialchars($userName) ?>!
-            </span>
-        <?php endif; ?>
-    </div>
 
-    <div class="header-right">
-        <div class="nav-buttons">
-            <a href="index.php" class="nav-link-btn">Home</a>
-            
-            <?php if ($isLoggedIn): ?>
-                <a href="orders.php" class="nav-link-btn">Orders</a>
-            <?php endif; ?>
+            <div class="header-right">
+                <nav class="nav-links">
+                    <?php if ($isLoggedIn): ?>
+                        <span class="welcome-msg">Welcome, <?= htmlspecialchars($userName) ?>!</span>
+                    <?php endif; ?>
 
-            <?php if ($isAdmin): ?>
-                <a href="dashboard.php" class="nav-link-btn">Dashboard</a>
-            <?php endif; ?>
+                    <a href="index.php" class="nav-link-btn">Home</a>
+                    <?php if ($isLoggedIn): ?><a href="orders.php" class="nav-link-btn">Orders</a><?php endif; ?>
+                    <?php if ($isAdmin): ?>
+                        <a href="users.php" class="nav-link-btn">Users</a>
+                        <a href="products.php" class="nav-link-btn">Products</a>
+                    <?php endif; ?>
+                    <?php if ($isLoggedIn): ?>
+                        <a href="../controllers/AuthController.php?action=logout" class="nav-link-btn logout">Logout</a>
+                    <?php else: ?>
+                        <a href="login.php" class="nav-link-btn">Login</a>
+                    <?php endif; ?>
+                </nav>
 
-            <?php if ($isLoggedIn): ?>
-                <a href="../controllers/AuthController.php?action=logout" class="nav-link-btn logout">Logout</a>
-            <?php else: ?>
-                <a href="login.php" class="nav-link-btn">Login</a>
-            <?php endif; ?>
-            
-             <button id="theme-toggle-btn" class="theme-toggle" aria-pressed="false" title="Toggle theme"></button>
-        </div>
+                <button id="theme-toggle-btn" class="theme-toggle" aria-pressed="false" title="Toggle theme"></button>
 
-        <div class="cart-icon" onclick="goToCart()">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span id="cart-count">0</span>
-        </div>
-    </div>
-</header>
+                <div class="cart-icon" onclick="goToCart()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+        </header>
 
         <section class="hero">
             <div class="title">Give All You Need</div>

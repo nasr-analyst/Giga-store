@@ -32,8 +32,8 @@ category_btns.forEach(btn => {
     };
 });
 
-// ============= UNIFIED CART SYSTEM =============
-// Single source of truth for cart operations
+// ============= نظام سلة موحد =============
+// مصدر واحد للحقيقة لعمليات السلة
 function cartKey(uid) { 
     return `cart:u:${uid}`; 
 }
@@ -74,7 +74,7 @@ function addProductToCart(productElement) {
     return product;
 }
 
-// Buy button handler
+// معالج زر الشراء
 const buyButtons = document.querySelectorAll(".btn-buy");
 buyButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
@@ -86,7 +86,7 @@ buyButtons.forEach((btn) => {
     });
 });
 
-// Add to cart button handler
+// معالج زر الإضافة إلى السلة
 const addButtons = document.querySelectorAll(".btn-add");
 addButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
@@ -117,7 +117,7 @@ function updateCartCount() {
 
 updateCartCount();
 
-// ============= SEARCH FUNCTIONALITY =============
+// ============= دالة البحث =============
 const searchInput = document.getElementById('product-search');
 const searchBtn = document.querySelector('.btn-search');
 
@@ -131,7 +131,7 @@ if (searchInput) {
     });
 }
 
-// Trigger search on button click
+// تفعيل البحث عند النقر على الزر
 if (searchBtn) {
     searchBtn.addEventListener('click', (e) => {
         e.preventDefault();

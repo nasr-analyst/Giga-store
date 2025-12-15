@@ -16,14 +16,13 @@ $users = $userModel->getAllUsers();
 
 $userName = $_SESSION['user_name'] ?? 'Admin';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
+    <title>Users - Admin</title>
     <link rel="stylesheet" href="../assets/css/store-style.css">
     <link rel="stylesheet" href="../assets/css/theme.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
@@ -31,31 +30,33 @@ $userName = $_SESSION['user_name'] ?? 'Admin';
 </head>
 
 <body>
-    <header class="top-header">
-        <div class="logo">
-            <img src="../assets/images/logo.png" alt="Giga Store">
+    <header class="top-header" style="align-items:flex-start;">
+        <div style="display:flex;align-items:center;gap:16px;">
+            <div class="logo" style="display:flex;align-items:center;gap:12px;">
+                <img src="../assets/images/logo.png" alt="Giga Store" style="height:40px;">
+            </div>
         </div>
 
-        <nav class="nav-links">
-            <!-- Theme toggle button -->
-            <button id="theme-toggle-btn" class="theme-toggle" aria-pressed="false" title="Toggle theme"
-                style="margin-right:15px;"></button>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <div style="color:var(--muted);font-weight:600;">Welcome, <?= htmlspecialchars($userName) ?>!</div>
 
-            <a href="../views/index.php">Home</a>
-            <a href="../views/orders.php">My Orders</a>
+            <nav class="nav-links" aria-label="Dashboard navigation">
+                <a href="../views/index.php" class="nav-link-btn">Home</a>
+                <a href="../views/orders.php" class="nav-link-btn">Orders</a>
+                <a href="products.php" class="nav-link-btn">Products</a>
+                <a href="../controllers/AuthController.php?action=logout" class="nav-link-btn logout">Logout</a>
+            </nav>
 
-            <span style="color:var(--text);font-weight:600;">Welcome, <?= htmlspecialchars($userName) ?>!</span>
+            <button id="theme-toggle-btn" class="theme-toggle" aria-pressed="false" title="Toggle theme"></button>
 
-            <a href="../controllers/AuthController.php?action=logout">Logout</a>
-
-            <!-- Cart icon with proper navigation -->
-            <div class="cart-icon" onclick="goToCart()" style="cursor:pointer;">
-                🛒 Cart <span id="cart-count">0</span>
+            <div class="cart-icon" onclick="goToCart()" style="cursor:pointer;margin-left:8px;">
+                <i class="fa-solid fa-cart-shopping" style="font-size:18px;color:var(--primary-color);"></i>
+                <span id="cart-count">0</span>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <h2>User Management</h2>
+    <h2>Users Management</h2>
 
     <div class="table-responsive">
         <table>

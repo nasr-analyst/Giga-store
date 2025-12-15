@@ -41,12 +41,16 @@ body {
 
 /* إزالة الإطار والخلفية من خانة الكتابة عشان تندمج مع البار */
 .search input {
-  border: none;              /* إزالة البرواز */
-  outline: none;             /* إزالة خط التحديد عند الكتابة */
-  background: transparent;   /* جعل الخلفية شفافة */
+  border: none;
+  /* إزالة البرواز */
+  outline: none;
+  /* إزالة خط التحديد عند الكتابة */
+  background: transparent;
+  /* جعل الخلفية شفافة */
   font-size: 14px;
   color: var(--text-dark);
-  width: 200px;              /* عرض مناسب للنص */
+  width: 200px;
+  /* عرض مناسب للنص */
 }
 
 /* Hero */
@@ -331,7 +335,8 @@ body {
 }
 
 .muted {
-  color: var(--text-light);
+  /* Use theme-aware muted color; fallback to the medium text color if --muted is not defined */
+  color: var(--muted, var(--text-medium));
   font-size: 12px;
 }
 
@@ -517,20 +522,25 @@ body {
 /* الكونتينر الرئيسي للهيدر */
 .header {
   display: flex;
-  justify-content: space-between; /* يوزع العناصر (شمال - وسط - يمين) */
-  align-items: center;            /* يوسط العناصر عمودياً */
+  justify-content: space-between;
+  /* يوزع العناصر (شمال - وسط - يمين) */
+  align-items: center;
+  /* يوسط العناصر عمودياً */
   padding: 15px 30px;
   background: var(--card-background);
   border-bottom: 1px solid var(--border-color);
-  position: relative;             /* مهم عشان رسالة الترحيب */
-  height: 80px;                   /* ارتفاع ثابت لمنع اللخبطة */
+  position: relative;
+  /* مهم عشان رسالة الترحيب */
+  height: 80px;
+  /* ارتفاع ثابت لمنع اللخبطة */
 }
 
 /* 1. تنسيق الجزء الشمال (لوجو + بحث) */
 .header-left {
   display: flex;
   align-items: center;
-  gap: 20px; /* مسافة بين اللوجو والبحث */
+  gap: 20px;
+  /* مسافة بين اللوجو والبحث */
 }
 
 .brand .logo {
@@ -548,29 +558,36 @@ body {
 
 /* 2. تنسيق الجزء الأوسط (رسالة الترحيب) */
 .header-center {
-  position: absolute; /* عشان تيجي في النص بالظبط فوق كل حاجة */
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
+  z-index: 2;
 }
 
-.welcome-msg {
-  font-weight: bold;
-  font-size: 16px;
-  color: var(--text-dark);
+.header-center .welcome-msg {
+  display: inline-block;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
 }
 
 /* 3. تنسيق الجزء اليمين (الزراير + السلة) */
 .header-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
 
 .nav-buttons {
   display: flex;
   align-items: center;
-  gap: 10px; /* مسافة بين كل زرار والتاني */
+  gap: 10px;
+  /* مسافة بين كل زرار والتاني */
 }
 
 /* شكل الزراير (الإطار البرتقالي) */
@@ -578,8 +595,10 @@ body {
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
-  color: var(--primary-color);       /* لون الكلام برتقالي */
-  border: 1px solid var(--primary-color); /* برواز برتقالي */
+  color: var(--primary-color);
+  /* لون الكلام برتقالي */
+  border: 1px solid var(--primary-color);
+  /* برواز برتقالي */
   padding: 8px 15px;
   border-radius: 6px;
   transition: all 0.3s ease;
@@ -589,7 +608,8 @@ body {
 /* لما تقف بالماوس على الزرار */
 .nav-link-btn:hover {
   background-color: var(--primary-color);
-  color: #fff; /* الكلام يبقى أبيض */
+  color: #fff;
+  /* الكلام يبقى أبيض */
 }
 
 /* زرار الخروج (Logout) نخليه مختلف شوية (أحمر) أو سيبه زي ما تحب */
@@ -597,6 +617,7 @@ body {
   border-color: #dc3545;
   color: #dc3545;
 }
+
 .nav-link-btn.logout:hover {
   background-color: #dc3545;
   color: #fff;

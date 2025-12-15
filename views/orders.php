@@ -46,13 +46,13 @@ $userName = $_SESSION['user_name'] ?? 'Guest';
   <header class="header"
     style="background:var(--card-bg);border-bottom:1px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;align-items:center;padding:12px 30px;">
     <div style="font-weight:700;color:var(--text);">My Orders</div>
-    <nav style="display:flex;gap:15px;font-size:14px;">
-      <a href="index.php" style="text-decoration:none;color:var(--primary-color);">Home</a>
+
+    <nav class="nav-links" style="display:flex;gap:12px;align-items:center;">
+      <a href="index.php" class="nav-link-btn">Home</a>
       <?php if ($isAdmin): ?>
-        <a href="dashboard.php" style="text-decoration:none;color:var(--primary-color);">Dashboard</a>
+        <a href="dashboard.php" class="nav-link-btn">Dashboard</a>
       <?php endif; ?>
-      <a href="../controllers/AuthController.php?action=logout"
-        style="text-decoration:none;color:var(--primary-color);">Logout</a>
+      <a href="../controllers/AuthController.php?action=logout" class="nav-link-btn logout">Logout</a>
     </nav>
   </header>
 

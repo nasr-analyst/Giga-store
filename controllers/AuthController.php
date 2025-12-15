@@ -83,4 +83,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     header('Location: ../views/login.php');
     exit;
 }
+
+// Default: redirect to login if accessed directly
+header('Location: ../views/login.php');
+exit;
 ?>

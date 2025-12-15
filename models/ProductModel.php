@@ -12,7 +12,7 @@ class ProductModel
         $this->db = $conn;
     }
 
-public function createProduct(
+    public function createProduct(
         string $name,
         string $description,
         float $price,
@@ -23,12 +23,19 @@ public function createProduct(
             "INSERT INTO Products (name, description, price, image_url, category_id)
              VALUES (?, ?, ?, ?, ?)"
         );
+        if (!$stmt) {
+            error_log("createProduct prepare error: " . $this->db->error);
+            return false;
+        }
 
         $stmt->bind_param('ssdsi', $name, $description, $price, $imageUrl, $categoryId);
         $result = $stmt->execute();
+        if (!$result) {
+            error_log("createProduct execute error: " . $stmt->error);
+        }
         $stmt->close();
 
-        return $result;
+        return (bool) $result;
     }
 
 
@@ -72,7 +79,7 @@ public function createProduct(
         return $rows;
     }
 
-public function updateProduct(
+    public function updateProduct(
         int $id,
         string $name,
         string $description,
@@ -85,18 +92,22 @@ public function updateProduct(
              SET name = ?, description = ?, price = ?, image_url = ?, category_id = ?
              WHERE id = ?"
         );
+        if (!$stmt) {
+            error_log("updateProduct prepare error: " . $this->db->error);
+            return false;
+        }
 
-        $stmt->bind_param('ssdsi i', $name, $description, $price, $imageUrl, $categoryId, $id);
-        //  PHP needs the types without space → fix below
-        $stmt->bind_param('ssd sii', $name, $description, $price, $imageUrl, $categoryId, $id);
-
+        $stmt->bind_param('ssdsii', $name, $description, $price, $imageUrl, $categoryId, $id);
         $result = $stmt->execute();
+        if (!$result) {
+            error_log("updateProduct execute error: " . $stmt->error);
+        }
         $stmt->close();
 
-        return $result;
+        return (bool) $result;
     }
 
-     public function deleteProduct(int $id): bool
+    public function deleteProduct(int $id): bool
     {
         $stmt = $this->db->prepare("DELETE FROM Products WHERE id = ?");
         $stmt->bind_param('i', $id);

@@ -33,16 +33,32 @@ body {
     gap: 20px;
 }
 
-.nav-links a {
+/* copied styles so dashboard nav uses same button look as main site */
+.nav-links .nav-link-btn {
     text-decoration: none;
-    font-size: 16px;
-    color: var(--text);
+    font-size: 14px;
     font-weight: 600;
-    transition: color 0.2s;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 8px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
-.nav-links a:hover {
-    color: var(--primary-color);
+.nav-links .nav-link-btn:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* logout variant */
+.nav-links .nav-link-btn.logout {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+.nav-links .nav-link-btn.logout:hover {
+    background-color: #dc3545;
+    color: #fff;
 }
 
 /* Cart icon + count */
